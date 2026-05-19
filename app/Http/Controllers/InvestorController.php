@@ -29,4 +29,25 @@ class InvestorController extends Controller
 
         return redirect()->route('investor.dashboard')->with('success', 'Investor profile created successfully.');
     }
+
+    public function dashboard(Request $request)
+    {
+        $investor = $request->user()->investor;
+
+        if ($investor) {
+            $startups = \App\Models\Startup::with(['category', 'user'])
+                ->where('status', 'approved')
+                ->latest()
+                ->get();
+
+            $fundingRequests = \App\Models\FundingRequest::with(['startup'])
+                ->latest()
+                ->get();
+        } else {
+            $startups = collect();
+            $fundingRequests = collect();
+        }
+
+        return view('dashboards.investor', compact('investor', 'startups', 'fundingRequests'));
+    }
 }
