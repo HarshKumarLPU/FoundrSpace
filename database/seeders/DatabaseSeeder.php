@@ -134,5 +134,13 @@ class DatabaseSeeder extends Seeder
             'is_verified' => true,
         ]);
 
+        // Create Freelancer
+        \App\Models\User::create([
+            'name' => 'Dave Freelancer',
+            'email' => 'freelancer@foundrsearch.com',
+            'password' => bcrypt('password'),
+            'role' => 'freelancer',
+        ]);
+
     }
 }
