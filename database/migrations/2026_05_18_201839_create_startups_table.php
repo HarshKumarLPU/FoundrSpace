@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('startup_category_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
+            $table->string('slug')->unique()->nullable();
             $table->text('description');
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 10, 2)->default(0);
             $table->string('type')->default('consultation'); // consultation, development, etc.
+            $table->integer('delivery_days')->default(1);
             $table->timestamps();
         });
     }
