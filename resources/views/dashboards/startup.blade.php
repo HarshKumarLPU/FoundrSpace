@@ -172,12 +172,26 @@
                                             {{ $app->cover_letter ?? 'No cover letter provided.' }}
                                         </div>
 
-                                        <div class="flex items-center justify-between text-xs pt-1">
-                                            <span class="text-slate-500">{{ $app->created_at->diffForHumans() }}</span>
+                                        <div class="flex items-center justify-between text-xs pt-3 mt-3 border-t border-slate-800">
                                             <a href="{{ asset('storage/' . $app->resume) }}" target="_blank" class="text-slate-200 hover:text-white font-semibold inline-flex items-center gap-1">
                                                 View Resume
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                             </a>
+                                            
+                                            <div class="flex items-center gap-2">
+                                                @if($app->status === 'pending')
+                                                    <form action="{{ route('applications.accept', $app) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="px-3 py-1 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-bold rounded border border-cyan-500/20 transition-colors">Accept</button>
+                                                    </form>
+                                                    <form action="{{ route('applications.reject', $app) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold rounded border border-red-500/20 transition-colors">Reject</button>
+                                                    </form>
+                                                @else
+                                                    <span class="text-slate-500">{{ $app->created_at->diffForHumans() }}</span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
