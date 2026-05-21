@@ -53,23 +53,20 @@ class StartupController extends Controller
     {
         $startup = $request->user()->startup;
 
-        if ($startup) {
-            $startup->load(['category']);
-            $products = \App\Models\Product::where('startup_id', $startup->id)->latest()->get();
-            $services = \App\Models\Service::where('startup_id', $startup->id)->latest()->get();
-            $jobPostings = $startup->jobPostings()->latest()->get();
+        if (!$startup) {
+            return redirect()->route('startups.create')->with('info', 'Welcome! Please create your Startup profile to access the dashboard.');
+        }
+
+        $startup->load(['category']);
+        $products = \App\Models\Product::where('startup_id', $startup->id)->latest()->get();
+        $services = \App\Models\Service::where('startup_id', $startup->id)->latest()->get();
+        $jobPostings = $startup->jobPostings()->latest()->get();
             
             $jobPostingIds = $jobPostings->pluck('id');
             $applications = \App\Models\Application::with(['jobPosting', 'user'])
                 ->whereIn('job_posting_id', $jobPostingIds)
                 ->latest()
                 ->get();
-        } else {
-            $products = collect();
-            $services = collect();
-            $jobPostings = collect();
-            $applications = collect();
-        }
 
         return view('dashboards.startup', compact('startup', 'products', 'services', 'jobPostings', 'applications'));
     }
