@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['user_id', 'startup_category_id', 'name', 'slug', 'description', 'logo', 'banner', 'stage', 'status'])]
+#[Fillable(['user_id', 'startup_category_id', 'name', 'slug', 'description', 'logo', 'banner', 'stage', 'status', 'pitch_deck', 'is_verified', 'views_count'])]
 class Startup extends Model
 {
     public function getRouteKeyName(): string
@@ -28,5 +28,10 @@ class Startup extends Model
     public function jobPostings()
     {
         return $this->hasMany(JobPosting::class);
+    }
+    
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
     }
 }

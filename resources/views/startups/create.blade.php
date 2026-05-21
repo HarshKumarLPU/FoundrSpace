@@ -64,6 +64,14 @@
                             <input id="banner" type="file" name="banner" class="block mt-1 w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-500/10 file:text-purple-400 hover:file:bg-purple-500/20" />
                             <x-input-error :messages="$errors->get('banner')" class="mt-2" />
                         </div>
+                        
+                        <!-- Pitch Deck -->
+                        <div>
+                            <x-input-label for="pitch_deck" :value="__('Pitch Deck (PDF, Max 10MB)')" class="text-gray-300" />
+                            <input id="pitch_deck" type="file" name="pitch_deck" accept=".pdf" class="block mt-1 w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20" />
+                            <x-input-error :messages="$errors->get('pitch_deck')" class="mt-2" />
+                            <p class="text-xs text-gray-500 mt-2">Optional. Upload your investor pitch deck to showcase your vision.</p>
+                        </div>
 
                         <div class="flex items-center justify-end mt-6">
                             <x-primary-button class="bg-gradient-to-r from-purple-600 to-cyan-500 border-0 hover:from-purple-500 hover:to-cyan-400 transition-all shadow-[0_0_15px_rgba(6,182,212,0.4)] px-8 py-3 text-base">

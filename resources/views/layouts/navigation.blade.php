@@ -15,13 +15,60 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard') || request()->routeIs('*.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(in_array(auth()->user()->role, ['admin', 'customer', 'investor', 'startup_owner']))
                     <x-nav-link :href="route('marketplace.index')" :active="request()->routeIs('marketplace.*')">
                         {{ __('Startups') }}
                     </x-nav-link>
+                    @endif
+                    @if(in_array(auth()->user()->role, ['admin', 'freelancer', 'startup_owner']))
                     <x-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
                         {{ __('Jobs') }}
                     </x-nav-link>
+                    @endif
                 </div>
+            </div>
+
+            <!-- Notifications Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <x-dropdown align="right" width="80">
+                    <x-slot name="trigger">
+                        <button class="relative inline-flex items-center p-2 border border-transparent text-sm leading-4 font-medium rounded-full text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            @if(auth()->user()->unreadNotifications->count() > 0)
+                                <span class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-800"></span>
+                            @endif
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                            <p class="text-sm font-bold text-gray-900 dark:text-white">Notifications</p>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+                            @forelse(auth()->user()->unreadNotifications as $notification)
+                                <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
+                                    <p class="text-sm text-gray-800 dark:text-gray-200 leading-snug">{{ $notification->data['message'] ?? 'New notification' }}</p>
+                                    <p class="text-[10px] text-gray-500 mt-1 font-semibold uppercase tracking-wider">{{ $notification->created_at->diffForHumans() }}</p>
+                                </div>
+                            @empty
+                                <div class="px-6 py-8 text-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mx-auto mb-3 text-gray-400">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                                    </div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">All caught up!</p>
+                                </div>
+                            @endforelse
+                        </div>
+                        @if(auth()->user()->unreadNotifications->count() > 0)
+                            <div class="p-2 border-t border-gray-100 dark:border-gray-700 text-center bg-gray-50 dark:bg-gray-800/50">
+                                <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 w-full py-1">Mark all as read</button>
+                                </form>
+                            </div>
+                        @endif
+                    </x-slot>
+                </x-dropdown>
             </div>
 
             <!-- Settings Dropdown -->
@@ -76,12 +123,16 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard') || request()->routeIs('*.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if(in_array(auth()->user()->role, ['admin', 'customer', 'investor', 'startup_owner']))
             <x-responsive-nav-link :href="route('marketplace.index')" :active="request()->routeIs('marketplace.*')">
                 {{ __('Startups') }}
             </x-responsive-nav-link>
+            @endif
+            @if(in_array(auth()->user()->role, ['admin', 'freelancer', 'startup_owner']))
             <x-responsive-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
                 {{ __('Jobs') }}
             </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

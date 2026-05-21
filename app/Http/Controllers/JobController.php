@@ -9,7 +9,15 @@ class JobController extends Controller
 {
     public function index()
     {
-        $jobs = JobPosting::with('startup')->where('status', 'active')->latest()->paginate(10);
+        $query = JobPosting::with('startup')->where('status', 'active');
+
+        if (auth()->check()) {
+            $query->whereDoesntHave('applications', function ($q) {
+                $q->where('user_id', auth()->id())->where('status', 'rejected');
+            });
+        }
+
+        $jobs = $query->latest()->paginate(10);
         return view('jobs.index', compact('jobs'));
     }
 
@@ -41,6 +49,12 @@ class JobController extends Controller
     public function show(JobPosting $job)
     {
         $job->load('startup');
-        return view('jobs.show', compact('job'));
+        
+        $existingApplication = null;
+        if (auth()->check()) {
+            $existingApplication = auth()->user()->applications()->where('job_posting_id', $job->id)->first();
+        }
+
+        return view('jobs.show', compact('job', 'existingApplication'));
     }
 }

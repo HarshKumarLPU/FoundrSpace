@@ -23,6 +23,7 @@ class StartupController extends Controller
             'stage' => 'required|string',
             'logo' => 'nullable|image|max:2048',
             'banner' => 'nullable|image|max:2048',
+            'pitch_deck' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         $logoPath = null;
@@ -34,6 +35,11 @@ class StartupController extends Controller
         if ($request->hasFile('banner')) {
             $bannerPath = $request->file('banner')->store('startups/banners', 'public');
         }
+        
+        $pitchDeckPath = null;
+        if ($request->hasFile('pitch_deck')) {
+            $pitchDeckPath = $request->file('pitch_deck')->store('startups/pitch_decks', 'public');
+        }
 
         $request->user()->startup()->create([
             'name' => $request->name,
@@ -43,7 +49,10 @@ class StartupController extends Controller
             'stage' => $request->stage,
             'logo' => $logoPath,
             'banner' => $bannerPath,
+            'pitch_deck' => $pitchDeckPath,
             'status' => 'pending',
+            'is_verified' => false,
+            'views_count' => 0,
         ]);
 
         return redirect()->route('startup.dashboard')->with('success', 'Startup profile created successfully and is pending approval.');

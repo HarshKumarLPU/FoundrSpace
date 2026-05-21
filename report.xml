@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/Users/harshkumar212005/Desktop/FoundrSearch/phpunit.xml" tests="25" assertions="6" errors="19" failures="1" skipped="0" time="0.387776">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.000391">
+      <testsuite name="Tests\Unit\ExampleTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.000391">
+        <testcase name="test_that_true_is_true" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.000391"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="24" assertions="5" errors="19" failures="1" skipped="0" time="0.387386">
+      <testsuite name="Tests\Feature\Auth\AuthenticationTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php" tests="4" assertions="1" errors="3" failures="0" skipped="0" time="0.276283">
+        <testcase name="test_login_screen_can_be_rendered" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php" line="13" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="1" time="0.256804"/>
+        <testcase name="test_users_can_authenticate_using_the_login_screen" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php" line="20" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="0" time="0.010299">
+          <error type="Error">Tests\Feature\Auth\AuthenticationTest::test_users_can_authenticate_using_the_login_screen
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php:22</error>
+        </testcase>
+        <testcase name="test_users_can_not_authenticate_with_invalid_password" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php" line="33" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="0" time="0.004746">
+          <error type="Error">Tests\Feature\Auth\AuthenticationTest::test_users_can_not_authenticate_with_invalid_password
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php:35</error>
+        </testcase>
+        <testcase name="test_users_can_logout" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php" line="45" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="0" time="0.004435">
+          <error type="Error">Tests\Feature\Auth\AuthenticationTest::test_users_can_logout
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/AuthenticationTest.php:47</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\EmailVerificationTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php" tests="3" assertions="0" errors="3" failures="0" skipped="0" time="0.012962">
+        <testcase name="test_email_verification_screen_can_be_rendered" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php" line="16" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="0" time="0.004331">
+          <error type="Error">Tests\Feature\Auth\EmailVerificationTest::test_email_verification_screen_can_be_rendered
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php:18</error>
+        </testcase>
+        <testcase name="test_email_can_be_verified" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php" line="25" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="0" time="0.004343">
+          <error type="Error">Tests\Feature\Auth\EmailVerificationTest::test_email_can_be_verified
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php:27</error>
+        </testcase>
+        <testcase name="test_email_is_not_verified_with_invalid_hash" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php" line="44" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="0" time="0.004287">
+          <error type="Error">Tests\Feature\Auth\EmailVerificationTest::test_email_is_not_verified_with_invalid_hash
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/EmailVerificationTest.php:46</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordConfirmationTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php" tests="3" assertions="0" errors="3" failures="0" skipped="0" time="0.012765">
+        <testcase name="test_confirm_password_screen_can_be_rendered" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php" line="13" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="0" time="0.004221">
+          <error type="Error">Tests\Feature\Auth\PasswordConfirmationTest::test_confirm_password_screen_can_be_rendered
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php:15</error>
+        </testcase>
+        <testcase name="test_password_can_be_confirmed" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php" line="22" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="0" time="0.004314">
+          <error type="Error">Tests\Feature\Auth\PasswordConfirmationTest::test_password_can_be_confirmed
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php:24</error>
+        </testcase>
+        <testcase name="test_password_is_not_confirmed_with_invalid_password" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php" line="34" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="0" time="0.004229">
+          <error type="Error">Tests\Feature\Auth\PasswordConfirmationTest::test_password_is_not_confirmed_with_invalid_password
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordConfirmationTest.php:36</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordResetTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php" tests="4" assertions="1" errors="3" failures="0" skipped="0" time="0.020466">
+        <testcase name="test_reset_password_link_screen_can_be_rendered" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php" line="15" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="1" time="0.006324"/>
+        <testcase name="test_reset_password_link_can_be_requested" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php" line="22" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="0" time="0.005458">
+          <error type="Error">Tests\Feature\Auth\PasswordResetTest::test_reset_password_link_can_be_requested
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php:26</error>
+        </testcase>
+        <testcase name="test_reset_password_screen_can_be_rendered" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php" line="33" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="0" time="0.004467">
+          <error type="Error">Tests\Feature\Auth\PasswordResetTest::test_reset_password_screen_can_be_rendered
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php:37</error>
+        </testcase>
+        <testcase name="test_password_can_be_reset_with_valid_token" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php" line="50" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="0" time="0.004217">
+          <error type="Error">Tests\Feature\Auth\PasswordResetTest::test_password_can_be_reset_with_valid_token
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordResetTest.php:54</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordUpdateTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordUpdateTest.php" tests="2" assertions="0" errors="2" failures="0" skipped="0" time="0.008342">
+        <testcase name="test_password_can_be_updated" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordUpdateTest.php" line="14" class="Tests\Feature\Auth\PasswordUpdateTest" classname="Tests.Feature.Auth.PasswordUpdateTest" assertions="0" time="0.004132">
+          <error type="Error">Tests\Feature\Auth\PasswordUpdateTest::test_password_can_be_updated
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordUpdateTest.php:16</error>
+        </testcase>
+        <testcase name="test_correct_password_must_be_provided_to_update_password" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordUpdateTest.php" line="34" class="Tests\Feature\Auth\PasswordUpdateTest" classname="Tests.Feature.Auth.PasswordUpdateTest" assertions="0" time="0.004210">
+          <error type="Error">Tests\Feature\Auth\PasswordUpdateTest::test_correct_password_must_be_provided_to_update_password
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/PasswordUpdateTest.php:36</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\RegistrationTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/RegistrationTest.php" tests="2" assertions="2" errors="0" failures="1" skipped="0" time="0.025883">
+        <testcase name="test_registration_screen_can_be_rendered" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/RegistrationTest.php" line="12" class="Tests\Feature\Auth\RegistrationTest" classname="Tests.Feature.Auth.RegistrationTest" assertions="1" time="0.007098"/>
+        <testcase name="test_new_users_can_register" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/RegistrationTest.php" line="19" class="Tests\Feature\Auth\RegistrationTest" classname="Tests.Feature.Auth.RegistrationTest" assertions="1" time="0.018784">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\Auth\RegistrationTest::test_new_users_can_register
+The user is not authenticated
+Failed asserting that false is true.
+
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithAuthentication.php:64
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/Auth/RegistrationTest.php:28</failure>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExampleTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.005831">
+        <testcase name="test_the_application_returns_a_successful_response" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.005831"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ProfileTest" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php" tests="5" assertions="0" errors="5" failures="0" skipped="0" time="0.024854">
+        <testcase name="test_profile_page_is_displayed" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php" line="13" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="0" time="0.005999">
+          <error type="Error">Tests\Feature\ProfileTest::test_profile_page_is_displayed
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php:15</error>
+        </testcase>
+        <testcase name="test_profile_information_can_be_updated" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php" line="24" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="0" time="0.005103">
+          <error type="Error">Tests\Feature\ProfileTest::test_profile_information_can_be_updated
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php:26</error>
+        </testcase>
+        <testcase name="test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php" line="46" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="0" time="0.004583">
+          <error type="Error">Tests\Feature\ProfileTest::test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php:48</error>
+        </testcase>
+        <testcase name="test_user_can_delete_their_account" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php" line="64" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="0" time="0.004573">
+          <error type="Error">Tests\Feature\ProfileTest::test_user_can_delete_their_account
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php:66</error>
+        </testcase>
+        <testcase name="test_correct_password_must_be_provided_to_delete_account" file="/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php" line="82" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="0" time="0.004596">
+          <error type="Error">Tests\Feature\ProfileTest::test_correct_password_must_be_provided_to_delete_account
+Error: Call to a member function name() on null
+
+/Users/harshkumar212005/Desktop/FoundrSearch/database/factories/UserFactory.php:28
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:559
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:538
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:522
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php:185
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:521
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:438
+/Users/harshkumar212005/Desktop/FoundrSearch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:327
+/Users/harshkumar212005/Desktop/FoundrSearch/tests/Feature/ProfileTest.php:84</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

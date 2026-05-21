@@ -14,4 +14,9 @@ class JobPosting extends Model
     {
         return $this->belongsTo(Startup::class);
     }
+
+    public function applications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
 }

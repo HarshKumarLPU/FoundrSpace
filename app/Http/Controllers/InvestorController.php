@@ -11,6 +11,10 @@ class InvestorController extends Controller
     {
         $query = Investor::with('user');
 
+        if (auth()->check()) {
+            $query->where('user_id', '!=', auth()->id());
+        }
+
         if ($request->has('search') && $request->search != '') {
             $searchTerm = '%' . $request->search . '%';
             $query->where(function ($q) use ($searchTerm) {
@@ -69,5 +73,19 @@ class InvestorController extends Controller
         }
 
         return view('dashboards.investor', compact('investor', 'startups', 'fundingRequests'));
+    }
+
+    public function show(Investor $investor)
+    {
+        // Load the associated user for contact information
+        $investor->load('user');
+        
+        // Mocking some related past investments/dealflow for the UI
+        $pastInvestments = collect([
+            (object)['name' => 'Acme Corp', 'round' => 'Seed', 'amount' => '$500k'],
+            (object)['name' => 'Nexus AI', 'round' => 'Pre-Seed', 'amount' => '$250k'],
+        ]);
+
+        return view('investors.show', compact('investor', 'pastInvestments'));
     }
 }

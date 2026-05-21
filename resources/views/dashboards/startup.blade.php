@@ -1,67 +1,105 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-slate-200 leading-tight">
-            {{ __('Startup Owner Console') }}
-        </h2>
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
+                <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <h2 class="font-bold text-2xl text-slate-100 leading-tight">
+                {{ __('Startup Owner Console') }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="space-y-8">
         <!-- Session Messages -->
         @if(session('success'))
-            <div class="p-4 bg-slate-800 border border-slate-700 text-slate-200 rounded-xl flex items-center gap-3">
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span>{{ session('success') }}</span>
+            <div class="p-4 bg-indigo-950/50 border border-indigo-500/30 text-indigo-200 rounded-xl flex items-center gap-3 shadow-[0_0_20px_rgba(99,102,241,0.15)] animate-fade-in-down">
+                <svg class="w-5 h-5 flex-shrink-0 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="font-medium">{{ session('success') }}</span>
             </div>
         @endif
 
         @if($startup)
             <!-- Profile Cover & Summary -->
-            <div class="glass-panel rounded-2xl border border-slate-800 shadow-sm overflow-hidden">
-                <div class="h-32 bg-gradient-to-r from-slate-900 to-slate-800 relative"></div>
-                <div class="px-8 pb-8 relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div class="flex items-start gap-5 -mt-10">
-                        <div class="w-20 h-20 rounded-2xl bg-slate-900 border-4 border-slate-950 overflow-hidden flex items-center justify-center shadow-lg">
+            <div class="glass-panel rounded-2xl border border-indigo-900/50 shadow-[0_4px_20px_rgba(79,70,229,0.05)] overflow-hidden group hover:border-indigo-500/30 transition-all duration-500">
+                <div class="h-32 bg-gradient-to-r from-indigo-950 via-slate-900 to-cyan-950 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+                </div>
+                <div class="px-8 pb-8 relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-slate-900/60 backdrop-blur-md">
+                    <div class="flex items-start gap-5 -mt-10 relative z-10">
+                        <div class="w-24 h-24 rounded-2xl bg-slate-950 border-4 border-slate-900 overflow-hidden flex items-center justify-center shadow-xl group-hover:shadow-indigo-500/20 transition-all duration-300 group-hover:-translate-y-1">
                             @if($startup->logo)
                                 <img src="{{ asset('storage/' . $startup->logo) }}" alt="Logo" class="w-full h-full object-cover">
                             @else
-                                <span class="font-bold text-slate-500 text-3xl">{{ substr($startup->name, 0, 1) }}</span>
+                                <span class="font-black text-indigo-500 text-4xl">{{ substr($startup->name, 0, 1) }}</span>
                             @endif
                         </div>
-                        <div class="mt-12 md:mt-10">
+                        <div class="mt-12 md:mt-11">
                             <div class="flex items-center gap-3">
-                                <h3 class="text-2xl font-extrabold text-white">{{ $startup->name }}</h3>
-                                <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-slate-800 text-slate-350 border border-slate-700 uppercase tracking-wide">
+                                <h3 class="text-3xl font-extrabold text-white tracking-tight">{{ $startup->name }}</h3>
+                                <span class="px-3 py-1 text-xs font-bold rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-widest shadow-inner">
                                     {{ $startup->stage }}
                                 </span>
                             </div>
-                            <p class="text-sm text-slate-400 mt-1">{{ $startup->category->name ?? 'Uncategorized' }}</p>
+                            <p class="text-sm font-medium text-slate-400 mt-1.5 flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                                {{ $startup->category->name ?? 'Uncategorized' }}
+                            </p>
                         </div>
                     </div>
-                    <div class="md:mt-6 flex items-center gap-3 w-full md:w-auto">
-                        <a href="{{ route('jobs.create') }}" class="w-full md:w-auto inline-flex justify-center items-center px-5 py-2.5 bg-slate-100 hover:bg-white text-slate-950 text-sm font-bold rounded-lg border border-slate-200/50 shadow-sm transition-all">
+                    <div class="md:mt-8 flex items-center gap-3 w-full md:w-auto relative z-10">
+                        <a href="{{ route('jobs.create') }}" class="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] transition-all duration-300 hover:-translate-y-0.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             Post a Job
                         </a>
                     </div>
                 </div>
             </div>
 
+            <!-- Analytics Chart -->
+            <div class="glass-panel rounded-2xl p-6 border border-indigo-900/30 bg-slate-900/40 shadow-[0_4px_20px_rgba(79,70,229,0.05)] mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                        Profile Views & Engagement
+                    </h3>
+                    <select class="bg-slate-950 border border-slate-800 text-slate-300 text-xs rounded-lg px-3 py-1.5 outline-none focus:border-indigo-500">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                    </select>
+                </div>
+                <div class="flex gap-8 mb-6 border-b border-indigo-900/30 pb-6">
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Total Views</p>
+                        <h4 class="text-3xl font-black text-white mt-1">{{ $startup->views_count }}</h4>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Investor Bookmarks</p>
+                        <h4 class="text-3xl font-black text-white mt-1">{{ $startup->bookmarks()->count() }}</h4>
+                    </div>
+                </div>
+                <div class="h-64 w-full relative">
+                    <canvas id="startupAnalyticsChart"></canvas>
+                </div>
+            </div>
+
             <!-- Stats Overview Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="glass-panel rounded-2xl p-6 border border-slate-800 shadow-sm text-center">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Market Products</p>
-                    <h4 class="text-3xl font-extrabold text-white mt-2">{{ $products->count() }}</h4>
+                <div class="glass-panel rounded-2xl p-6 border border-indigo-900/30 bg-slate-900/40 shadow-sm text-center hover:scale-[1.02] hover:border-indigo-500/30 transition-transform duration-300 cursor-default group">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest group-hover:text-indigo-400 transition-colors">Market Products</p>
+                    <h4 class="text-4xl font-black text-white mt-2 group-hover:text-indigo-50 transition-colors">{{ $products->count() }}</h4>
                 </div>
-                <div class="glass-panel rounded-2xl p-6 border border-slate-800 shadow-sm text-center">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Services Listed</p>
-                    <h4 class="text-3xl font-extrabold text-white mt-2">{{ $services->count() }}</h4>
+                <div class="glass-panel rounded-2xl p-6 border border-cyan-900/30 bg-slate-900/40 shadow-sm text-center hover:scale-[1.02] hover:border-cyan-500/30 transition-transform duration-300 cursor-default group">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">Services Listed</p>
+                    <h4 class="text-4xl font-black text-white mt-2 group-hover:text-cyan-50 transition-colors">{{ $services->count() }}</h4>
                 </div>
-                <div class="glass-panel rounded-2xl p-6 border border-slate-800 shadow-sm text-center">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Open Positions</p>
-                    <h4 class="text-3xl font-extrabold text-white mt-2">{{ $jobPostings->count() }}</h4>
+                <div class="glass-panel rounded-2xl p-6 border border-indigo-900/30 bg-slate-900/40 shadow-sm text-center hover:scale-[1.02] hover:border-indigo-500/30 transition-transform duration-300 cursor-default group">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest group-hover:text-indigo-400 transition-colors">Open Positions</p>
+                    <h4 class="text-4xl font-black text-white mt-2 group-hover:text-indigo-50 transition-colors">{{ $jobPostings->count() }}</h4>
                 </div>
-                <div class="glass-panel rounded-2xl p-6 border border-slate-800 shadow-sm text-center">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Job Applications</p>
-                    <h4 class="text-3xl font-extrabold text-white mt-2">{{ $applications->count() }}</h4>
+                <div class="glass-panel rounded-2xl p-6 border border-cyan-900/30 bg-slate-900/40 shadow-sm text-center hover:scale-[1.02] hover:border-cyan-500/30 transition-transform duration-300 cursor-default group">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">Job Applications</p>
+                    <h4 class="text-4xl font-black text-white mt-2 group-hover:text-cyan-50 transition-colors">{{ $applications->count() }}</h4>
                 </div>
             </div>
 
@@ -72,75 +110,67 @@
                 <div class="lg:col-span-2 space-y-8">
                     
                     <!-- Products List -->
-                    <div class="glass-panel rounded-2xl border border-slate-800 shadow-sm overflow-hidden">
-                        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-                            <h3 class="font-bold text-white">Products Catalog</h3>
+                    <div class="glass-panel rounded-2xl border border-indigo-900/30 bg-slate-900/40 shadow-sm overflow-hidden hover:border-indigo-500/20 transition-colors duration-300">
+                        <div class="p-5 border-b border-indigo-900/30 flex justify-between items-center bg-indigo-950/10">
+                            <h3 class="font-extrabold text-white flex items-center gap-2">
+                                <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                                Products Catalog
+                            </h3>
                         </div>
                         @if($products->count() > 0)
-                            <div class="divide-y divide-slate-800">
+                            <div class="divide-y divide-slate-800/60">
                                 @foreach($products as $product)
-                                    <div class="p-6 flex justify-between items-center">
+                                    <div class="p-5 flex justify-between items-center hover:bg-slate-800/30 transition-colors">
                                         <div>
-                                            <h4 class="font-bold text-white">{{ $product->title }}</h4>
-                                            <p class="text-xs text-slate-500 uppercase mt-0.5 tracking-wider">{{ $product->type }}</p>
+                                            <h4 class="font-bold text-slate-200">{{ $product->title }}</h4>
+                                            <p class="text-[11px] font-medium text-indigo-400/80 uppercase mt-1 tracking-widest">{{ $product->type }}</p>
                                         </div>
-                                        <span class="text-lg font-bold text-white">${{ number_format($product->price, 2) }}</span>
+                                        <span class="text-lg font-black text-indigo-300">${{ number_format($product->price, 2) }}</span>
                                     </div>
                                 @endforeach
                             </div>
                         @else
-                            <div class="p-8 text-center text-slate-500">
-                                No products listed in the marketplace yet.
-                            </div>
-                        @endif
-                    </div>
-
-                    <!-- Services List -->
-                    <div class="glass-panel rounded-2xl border border-slate-800 shadow-sm overflow-hidden">
-                        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-                            <h3 class="font-bold text-white">Services Catalog</h3>
-                        </div>
-                        @if($services->count() > 0)
-                            <div class="divide-y divide-slate-800">
-                                @foreach($services as $service)
-                                    <div class="p-6 flex justify-between items-center">
-                                        <div>
-                                            <h4 class="font-bold text-white">{{ $service->title }}</h4>
-                                            <p class="text-xs text-slate-500 mt-1">Delivery time: {{ $service->delivery_days }} days</p>
-                                        </div>
-                                        <span class="text-lg font-bold text-white">${{ number_format($service->price, 2) }}</span>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @else
-                            <div class="p-8 text-center text-slate-500">
-                                No consulting services listed.
+                            <div class="p-10 text-center">
+                                <div class="w-12 h-12 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-500">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                                </div>
+                                <p class="text-sm text-slate-500 font-medium">No products listed in the marketplace yet.</p>
                             </div>
                         @endif
                     </div>
 
                     <!-- Job Postings List -->
-                    <div class="glass-panel rounded-2xl border border-slate-800 shadow-sm overflow-hidden">
-                        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-                            <h3 class="font-bold text-white">Active Positions</h3>
+                    <div class="glass-panel rounded-2xl border border-indigo-900/30 bg-slate-900/40 shadow-sm overflow-hidden hover:border-indigo-500/20 transition-colors duration-300">
+                        <div class="p-5 border-b border-indigo-900/30 flex justify-between items-center bg-indigo-950/10">
+                            <h3 class="font-extrabold text-white flex items-center gap-2">
+                                <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                Active Positions
+                            </h3>
                         </div>
                         @if($jobPostings->count() > 0)
-                            <div class="divide-y divide-slate-800">
+                            <div class="divide-y divide-slate-800/60">
                                 @foreach($jobPostings as $job)
-                                    <div class="p-6 flex justify-between items-center">
+                                    <div class="p-5 flex justify-between items-center hover:bg-slate-800/30 transition-colors">
                                         <div>
-                                            <h4 class="font-bold text-white">{{ $job->title }}</h4>
-                                            <p class="text-xs text-slate-500 mt-1">Salary: {{ $job->salary_range ?? 'Unspecified' }} &bull; {{ ucfirst($job->type) }}</p>
+                                            <h4 class="font-bold text-slate-200">{{ $job->title }}</h4>
+                                            <p class="text-xs font-medium text-slate-400 mt-1 flex items-center gap-2">
+                                                <span>{{ $job->salary_range ?? 'Unspecified' }}</span>
+                                                <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+                                                <span class="text-indigo-300">{{ ucfirst($job->type) }}</span>
+                                            </p>
                                         </div>
-                                        <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                                            {{ ucfirst($job->status) }}
+                                        <span class="px-3 py-1 text-[10px] font-black rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-widest shadow-inner">
+                                            {{ $job->status }}
                                         </span>
                                     </div>
                                 @endforeach
                             </div>
                         @else
-                            <div class="p-8 text-center text-slate-500">
-                                No active positions posted.
+                            <div class="p-10 text-center">
+                                <div class="w-12 h-12 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-500">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <p class="text-sm text-slate-500 font-medium">No active positions posted.</p>
                             </div>
                         @endif
                     </div>
@@ -149,47 +179,55 @@
 
                 <!-- Right Column: Candidate Applications Tracking -->
                 <div class="space-y-8">
-                    <div class="glass-panel rounded-2xl border border-slate-800 shadow-sm overflow-hidden">
-                        <div class="p-6 border-b border-slate-800 bg-slate-900/50">
-                            <h3 class="font-bold text-white">Hiring Pipeline</h3>
-                            <p class="text-xs text-slate-550 mt-1">Review candidates who applied to your startup openings.</p>
+                    <div class="glass-panel rounded-2xl border border-indigo-900/40 bg-slate-900/60 shadow-sm overflow-hidden hover:border-indigo-500/30 transition-all duration-300">
+                        <div class="p-6 border-b border-indigo-900/40 bg-indigo-950/20 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                            <h3 class="font-extrabold text-white flex items-center gap-2 relative z-10">
+                                <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                Hiring Pipeline
+                            </h3>
+                            <p class="text-[11px] font-medium text-slate-400 mt-1.5 leading-relaxed relative z-10">Review candidates who applied to your startup openings.</p>
                         </div>
                         @if($applications->count() > 0)
-                            <div class="divide-y divide-slate-800">
+                            <div class="divide-y divide-slate-800/60">
                                 @foreach($applications as $app)
-                                    <div class="p-6 space-y-3">
+                                    <div class="p-6 space-y-4 hover:bg-slate-800/40 transition-colors">
                                         <div class="flex justify-between items-start">
                                             <div>
-                                                <h4 class="font-bold text-white">{{ $app->user->name }}</h4>
-                                                <p class="text-xs text-slate-300 font-medium">Role: {{ $app->jobPosting->title }}</p>
+                                                <h4 class="font-bold text-slate-100">{{ $app->user->name }}</h4>
+                                                <p class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider mt-1">{{ $app->jobPosting->title }}</p>
                                             </div>
-                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase">
+                                            <span class="px-2.5 py-1 text-[9px] font-black rounded-md {{ $app->status === 'pending' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ($app->status === 'accepted' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400 border border-slate-700') }} uppercase shadow-sm tracking-widest">
                                                 {{ $app->status }}
                                             </span>
                                         </div>
                                         
-                                        <div class="text-sm text-slate-400 line-clamp-2">
+                                        <div class="text-xs text-slate-400 leading-relaxed bg-slate-950/30 p-3 rounded-lg border border-slate-800/50">
                                             {{ $app->cover_letter ?? 'No cover letter provided.' }}
                                         </div>
 
-                                        <div class="flex items-center justify-between text-xs pt-3 mt-3 border-t border-slate-800">
-                                            <a href="{{ asset('storage/' . $app->resume) }}" target="_blank" class="text-slate-200 hover:text-white font-semibold inline-flex items-center gap-1">
+                                        <div class="flex items-center justify-between pt-2">
+                                            <a href="{{ asset('storage/' . $app->resume) }}" target="_blank" class="text-[11px] font-bold text-slate-300 hover:text-indigo-300 inline-flex items-center gap-1.5 transition-colors">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                                 View Resume
-                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                             </a>
                                             
                                             <div class="flex items-center gap-2">
                                                 @if($app->status === 'pending')
                                                     <form action="{{ route('applications.accept', $app) }}" method="POST">
                                                         @csrf
-                                                        <button type="submit" class="px-3 py-1 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-bold rounded border border-cyan-500/20 transition-colors">Accept</button>
+                                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white rounded-lg border border-emerald-500/20 hover:border-emerald-500 transition-all shadow-sm" title="Accept Candidate">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                                        </button>
                                                     </form>
                                                     <form action="{{ route('applications.reject', $app) }}" method="POST">
                                                         @csrf
-                                                        <button type="submit" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold rounded border border-red-500/20 transition-colors">Reject</button>
+                                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white rounded-lg border border-red-500/20 hover:border-red-500 transition-all shadow-sm" title="Reject Candidate">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                        </button>
                                                     </form>
                                                 @else
-                                                    <span class="text-slate-500">{{ $app->created_at->diffForHumans() }}</span>
+                                                    <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">{{ $app->created_at->diffForHumans() }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -197,8 +235,11 @@
                                 @endforeach
                             </div>
                         @else
-                            <div class="p-8 text-center text-slate-550">
-                                No job applications received yet.
+                            <div class="p-10 text-center">
+                                <div class="w-12 h-12 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-500">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                </div>
+                                <p class="text-sm text-slate-500 font-medium">No job applications received yet.</p>
                             </div>
                         @endif
                     </div>
@@ -207,18 +248,86 @@
             </div>
         @else
             <!-- Missing Startup Profile Warning -->
-            <div class="p-8 bg-slate-900 rounded-2xl border border-slate-800 text-center space-y-4 max-w-xl mx-auto">
-                <div class="w-16 h-16 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center mx-auto border border-slate-700">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+            <div class="p-10 bg-indigo-950/20 rounded-2xl border border-indigo-900/50 text-center space-y-5 max-w-xl mx-auto shadow-[0_0_30px_rgba(79,70,229,0.1)] relative overflow-hidden">
+                <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
+                <div class="w-20 h-20 rounded-2xl bg-indigo-900/40 text-indigo-400 flex items-center justify-center mx-auto border border-indigo-500/20 shadow-inner relative z-10 animate-bounce-slow">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white">Create your Startup Profile</h3>
-                <p class="text-slate-400">You must set up your company details to enable product listing, jobs posting, and connecting with investors.</p>
-                <div class="pt-2">
-                    <a href="{{ route('startups.create') }}" class="inline-flex items-center px-6 py-3 bg-slate-100 hover:bg-white text-slate-950 font-bold border border-slate-200 rounded-lg hover:scale-105 transition-all text-xs uppercase tracking-widest shadow-sm">
+                <h3 class="text-2xl font-black text-white relative z-10 tracking-tight">Create your Startup Profile</h3>
+                <p class="text-slate-400 text-sm leading-relaxed relative z-10 font-medium">You must set up your company details to enable product listing, jobs posting, and connecting with the investor ecosystem.</p>
+                <div class="pt-4 relative z-10">
+                    <a href="{{ route('startups.create') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl hover:scale-105 transition-all text-sm shadow-[0_0_20px_rgba(79,70,229,0.4)]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         Build Startup Profile
                     </a>
                 </div>
             </div>
         @endif
     </div>
+
+    <!-- Chart Initialization -->
+    @if($startup)
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('startupAnalyticsChart').getContext('2d');
+            
+            // Create gradient
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(99, 102, 241, 0.5)'); // Indigo 500
+            gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Profile Views',
+                        data: [120, 190, 150, 220, 180, 250, 210],
+                        borderColor: '#6366f1', // Indigo 500
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#312e81', // Indigo 900
+                        pointBorderColor: '#818cf8', // Indigo 400
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)', // Slate 900
+                            titleColor: '#f1f5f9',
+                            bodyColor: '#cbd5e1',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            padding: 10,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) { return context.parsed.y + ' Views'; }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: { color: '#64748b', font: { size: 11 } }
+                        }
+                    },
+                    interaction: { mode: 'index', intersect: false }
+                }
+            });
+        });
+    </script>
+    @endif
 </x-app-layout>

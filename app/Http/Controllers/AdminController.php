@@ -21,6 +21,11 @@ class AdminController extends Controller
             ->where('status', 'pending')
             ->latest()
             ->get();
+            
+        $approvedStartups = Startup::with(['user', 'category'])
+            ->where('status', 'approved')
+            ->latest()
+            ->get();
 
         $stats = [
             'total_users' => User::count(),
@@ -29,7 +34,7 @@ class AdminController extends Controller
             'total_investors' => Investor::count(),
         ];
 
-        return view('dashboards.admin', compact('pendingStartups', 'stats'));
+        return view('dashboards.admin', compact('pendingStartups', 'approvedStartups', 'stats'));
     }
 
     public function approveStartup(Startup $startup)
@@ -52,5 +57,16 @@ class AdminController extends Controller
         $startup->update(['status' => 'rejected']);
 
         return redirect()->route('admin.dashboard')->with('success', "Startup '{$startup->name}' has been rejected.");
+    }
+
+    public function verifyStartup(Startup $startup)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $startup->update(['is_verified' => !$startup->is_verified]);
+
+        return back()->with('success', "Startup verification status updated successfully!");
     }
 }

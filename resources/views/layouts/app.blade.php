@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=outfit:400,500,600,700,800|inter:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -58,18 +61,26 @@
                 
                 <div class="h-px bg-slate-800/60 my-4 mx-2"></div>
 
+                @if(in_array(Auth::user()->role, ['admin', 'investor', 'freelancer', 'customer']))
                 <a href="{{ route('marketplace.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl transition-all {{ request()->routeIs('marketplace.*') ? 'bg-blue-600/20 text-blue-400 shadow-sm border border-blue-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     Marketplace Directory
                 </a>
+                @endif
+                
+                @if(in_array(Auth::user()->role, ['admin', 'startup_owner']))
                 <a href="{{ route('investors.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl transition-all {{ request()->routeIs('investors.*') ? 'bg-emerald-600/20 text-emerald-400 shadow-sm border border-emerald-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     Investor Ecosystem
                 </a>
+                @endif
+
+                @if(in_array(Auth::user()->role, ['admin', 'startup_owner', 'freelancer']))
                 <a href="{{ route('jobs.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl transition-all {{ request()->routeIs('jobs.*') ? 'bg-violet-600/20 text-violet-400 shadow-sm border border-violet-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     Career Opportunities
                 </a>
+                @endif
             </nav>
         </div>
 
@@ -110,18 +121,26 @@
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                     Dashboard Home
                 </a>
+                @if(in_array(Auth::user()->role, ['admin', 'investor', 'freelancer', 'customer']))
                 <a @click="mobileMenuOpen = false" href="{{ route('marketplace.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl {{ request()->routeIs('marketplace.*') ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     Marketplace Directory
                 </a>
+                @endif
+                
+                @if(in_array(Auth::user()->role, ['admin', 'startup_owner']))
                 <a @click="mobileMenuOpen = false" href="{{ route('investors.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl {{ request()->routeIs('investors.*') ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     Investor Ecosystem
                 </a>
+                @endif
+
+                @if(in_array(Auth::user()->role, ['admin', 'startup_owner', 'freelancer']))
                 <a @click="mobileMenuOpen = false" href="{{ route('jobs.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl {{ request()->routeIs('jobs.*') ? 'bg-violet-600/20 text-violet-400 border border-violet-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     Career Opportunities
                 </a>
+                @endif
             </nav>
 
             <div class="border-t border-slate-800/60 pt-4 flex flex-col gap-2">

@@ -12,6 +12,10 @@ class MarketplaceController extends Controller
     {
         $query = Startup::with(['user', 'category']);
         
+        if (auth()->check()) {
+            $query->where('user_id', '!=', auth()->id());
+        }
+        
         if ($request->has('category') && $request->category != '') {
             $query->where('startup_category_id', $request->category);
         }
@@ -24,6 +28,10 @@ class MarketplaceController extends Controller
 
     public function show(Startup $startup)
     {
+        if (!auth()->check() || auth()->id() !== $startup->user_id) {
+            $startup->increment('views_count');
+        }
+        
         $startup->load(['user', 'category']);
         return view('marketplace.show', compact('startup'));
     }
