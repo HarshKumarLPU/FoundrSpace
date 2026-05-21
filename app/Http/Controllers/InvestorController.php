@@ -7,6 +7,26 @@ use Illuminate\Http\Request;
 
 class InvestorController extends Controller
 {
+    public function index(Request $request)
+    {
+        $query = Investor::with('user');
+
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('organization', 'like', $searchTerm)
+                  ->orWhere('bio', 'like', $searchTerm)
+                  ->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                      $userQuery->where('name', 'like', $searchTerm);
+                  });
+            });
+        }
+
+        $investors = $query->latest()->paginate(12);
+
+        return view('investors.index', compact('investors'));
+    }
+
     public function create()
     {
         return view('investors.create');

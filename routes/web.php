@@ -23,6 +23,9 @@ Route::get('/dashboard', function () {
 Route::get('/marketplace', [App\Http\Controllers\MarketplaceController::class, 'index'])->name('marketplace.index');
 Route::get('/marketplace/{startup}', [App\Http\Controllers\MarketplaceController::class, 'show'])->name('marketplace.show');
 
+// Public Investor Routes
+Route::get('/investors', [App\Http\Controllers\InvestorController::class, 'index'])->name('investors.index');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/startups/{startup}/approve', [App\Http\Controllers\AdminController::class, 'approveStartup'])->name('admin.startups.approve');
