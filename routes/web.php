@@ -45,6 +45,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/jobs/create', [App\Http\Controllers\JobController::class, 'create'])->name('jobs.create');
     Route::post('/jobs', [App\Http\Controllers\JobController::class, 'store'])->name('jobs.store');
+
+    Route::post('/applications/{application}/accept', [App\Http\Controllers\ApplicationController::class, 'accept'])->name('applications.accept');
+    Route::post('/applications/{application}/reject', [App\Http\Controllers\ApplicationController::class, 'reject'])->name('applications.reject');
 });
 
 // Public Job Routes
