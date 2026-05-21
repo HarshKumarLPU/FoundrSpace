@@ -44,4 +44,26 @@ class ApplicationController extends Controller
 
         return redirect()->route('freelancer.dashboard')->with('success', 'Application submitted successfully!');
     }
+
+    public function accept(Application $application)
+    {
+        $startup = auth()->user()->startup;
+        if (!$startup || $application->jobPosting->startup_id !== $startup->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $application->update(['status' => 'accepted']);
+        return back()->with('success', "Application for {$application->user->name} accepted.");
+    }
+
+    public function reject(Application $application)
+    {
+        $startup = auth()->user()->startup;
+        if (!$startup || $application->jobPosting->startup_id !== $startup->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $application->update(['status' => 'rejected']);
+        return back()->with('success', "Application for {$application->user->name} rejected.");
+    }
 }
