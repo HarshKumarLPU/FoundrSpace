@@ -54,10 +54,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/startup/dashboard', [App\Http\Controllers\StartupController::class, 'dashboard'])->name('startup.dashboard');
         Route::get('/startups/create', [App\Http\Controllers\StartupController::class, 'create'])->name('startups.create');
         Route::post('/startups', [App\Http\Controllers\StartupController::class, 'store'])->name('startups.store');
+        Route::get('/startups/{startup}/edit', [App\Http\Controllers\StartupController::class, 'edit'])->name('startups.edit');
+        Route::put('/startups/{startup}', [App\Http\Controllers\StartupController::class, 'update'])->name('startups.update');
         Route::get('/jobs/create', [App\Http\Controllers\JobController::class, 'create'])->name('jobs.create');
         Route::post('/jobs', [App\Http\Controllers\JobController::class, 'store'])->name('jobs.store');
         Route::post('/applications/{application}/accept', [App\Http\Controllers\ApplicationController::class, 'accept'])->name('applications.accept');
         Route::post('/applications/{application}/reject', [App\Http\Controllers\ApplicationController::class, 'reject'])->name('applications.reject');
+        
+        // Investment Proposals
+        Route::post('/investment-proposals/{proposal}/accept', [App\Http\Controllers\InvestmentProposalController::class, 'accept'])->name('investment-proposals.accept');
+        Route::post('/investment-proposals/{proposal}/reject', [App\Http\Controllers\InvestmentProposalController::class, 'reject'])->name('investment-proposals.reject');
     });
 
     // Investor Routes
@@ -65,6 +71,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/investor/dashboard', [App\Http\Controllers\InvestorController::class, 'dashboard'])->name('investor.dashboard');
         Route::get('/investors/create', [App\Http\Controllers\InvestorController::class, 'create'])->name('investors.create');
         Route::post('/investors', [App\Http\Controllers\InvestorController::class, 'store'])->name('investors.store');
+        
+        // Investment Proposals
+        Route::post('/startups/{startup}/invest', [App\Http\Controllers\InvestmentProposalController::class, 'store'])->name('startups.invest');
     });
 
     // Freelancer Routes

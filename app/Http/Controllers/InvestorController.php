@@ -67,12 +67,15 @@ class InvestorController extends Controller
             $fundingRequests = \App\Models\FundingRequest::with(['startup'])
                 ->latest()
                 ->get();
+
+            $investmentProposals = $investor->investmentProposals()->with('startup')->latest()->get();
         } else {
             $startups = collect();
             $fundingRequests = collect();
+            $investmentProposals = collect();
         }
 
-        return view('dashboards.investor', compact('investor', 'startups', 'fundingRequests'));
+        return view('dashboards.investor', compact('investor', 'startups', 'fundingRequests', 'investmentProposals'));
     }
 
     public function show(Investor $investor)

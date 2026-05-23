@@ -21,8 +21,8 @@ class StartupController extends Controller
             'startup_category_id' => 'nullable|exists:startup_categories,id',
             'description' => 'required|string',
             'stage' => 'required|string',
-            'logo' => 'nullable|image|max:2048',
-            'banner' => 'nullable|image|max:2048',
+            'logo' => 'nullable|image|max:10240',
+            'banner' => 'nullable|image|max:10240',
             'pitch_deck' => 'nullable|mimes:pdf|max:10240',
         ]);
 
@@ -58,6 +58,63 @@ class StartupController extends Controller
         return redirect()->route('startup.dashboard')->with('success', 'Startup profile created successfully and is pending approval.');
     }
 
+    public function edit(Startup $startup)
+    {
+        if ($startup->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $categories = StartupCategory::all();
+        return view('startups.edit', compact('startup', 'categories'));
+    }
+
+    public function update(Request $request, Startup $startup)
+    {
+        if ($startup->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'startup_category_id' => 'nullable|exists:startup_categories,id',
+            'description' => 'required|string',
+            'stage' => 'required|string',
+            'logo' => 'nullable|image|max:10240',
+            'banner' => 'nullable|image|max:10240',
+            'pitch_deck' => 'nullable|mimes:pdf|max:10240',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            if ($startup->logo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($startup->logo);
+            }
+            $startup->logo = $request->file('logo')->store('startups/logos', 'public');
+        }
+
+        if ($request->hasFile('banner')) {
+            if ($startup->banner) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($startup->banner);
+            }
+            $startup->banner = $request->file('banner')->store('startups/banners', 'public');
+        }
+        
+        if ($request->hasFile('pitch_deck')) {
+            if ($startup->pitch_deck) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($startup->pitch_deck);
+            }
+            $startup->pitch_deck = $request->file('pitch_deck')->store('startups/pitch_decks', 'public');
+        }
+
+        $startup->name = $request->name;
+        $startup->slug = \Illuminate\Support\Str::slug($request->name);
+        $startup->startup_category_id = $request->startup_category_id;
+        $startup->description = $request->description;
+        $startup->stage = $request->stage;
+        $startup->save();
+
+        return redirect()->route('startup.dashboard')->with('success', 'Startup profile updated successfully.');
+    }
+
     public function dashboard(Request $request)
     {
         $startup = $request->user()->startup;
@@ -77,6 +134,8 @@ class StartupController extends Controller
                 ->latest()
                 ->get();
 
-        return view('dashboards.startup', compact('startup', 'products', 'services', 'jobPostings', 'applications'));
+        $investmentProposals = $startup->investmentProposals()->with('investor.user')->latest()->get();
+
+        return view('dashboards.startup', compact('startup', 'products', 'services', 'jobPostings', 'applications', 'investmentProposals'));
     }
 }

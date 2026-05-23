@@ -57,10 +57,51 @@
                             This is your Startup Profile
                         </span>
                     @else
-                        <a href="mailto:{{ $startup->user->email }}" class="px-8 py-4 bg-white text-slate-950 hover:bg-indigo-50 font-black rounded-2xl border border-white shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2">
-                            Contact Founder
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
+                        @if(auth()->check() && auth()->user()->role === 'investor')
+                            <div x-data="{ openInvestModal: false }">
+                                <button @click="openInvestModal = true" class="px-8 py-4 bg-emerald-500 text-white hover:bg-emerald-400 font-black rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2">
+                                    Propose Investment
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </button>
+                                
+                                <!-- Invest Modal -->
+                                <template x-teleport="body">
+                                    <div x-show="openInvestModal" class="fixed inset-0 z-[100] overflow-y-auto" style="display: none;">
+                                        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+                                            <div x-show="openInvestModal" @click="openInvestModal = false" class="fixed inset-0 transition-opacity" aria-hidden="true">
+                                                <div class="absolute inset-0 bg-slate-950 opacity-80 backdrop-blur-sm"></div>
+                                            </div>
+                                            <div x-show="openInvestModal" class="relative inline-block align-bottom bg-slate-900 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-slate-800">
+                                                <form action="{{ route('startups.invest', $startup) }}" method="POST" class="p-8">
+                                                    @csrf
+                                                    <h3 class="text-2xl font-black text-white mb-6">Propose Investment</h3>
+                                                    
+                                                    <div class="mb-6">
+                                                        <label for="proposed_amount" class="block text-sm font-bold text-slate-400 mb-2">Proposed Amount / Range</label>
+                                                        <input type="text" name="proposed_amount" id="proposed_amount" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. $50k - $100k" required>
+                                                    </div>
+                                                    
+                                                    <div class="mb-6">
+                                                        <label for="message" class="block text-sm font-bold text-slate-400 mb-2">Message to Founder</label>
+                                                        <textarea name="message" id="message" rows="4" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Introduce yourself and explain why you're interested in investing..." required></textarea>
+                                                    </div>
+                                                    
+                                                    <div class="flex justify-end gap-3 mt-8">
+                                                        <button type="button" @click="openInvestModal = false" class="px-6 py-2.5 rounded-xl text-slate-400 font-bold hover:text-white hover:bg-slate-800 transition-colors">Cancel</button>
+                                                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-lg transition-all">Send Proposal</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        @else
+                            <a href="mailto:{{ $startup->user->email }}" class="px-8 py-4 bg-white text-slate-950 hover:bg-indigo-50 font-black rounded-2xl border border-white shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2">
+                                Contact Founder
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </a>
+                        @endif
                         <form action="{{ route('bookmarks.toggle', $startup) }}" method="POST">
                             @csrf
                             <button type="submit" class="p-4 bg-slate-900 hover:bg-slate-800 {{ auth()->check() && auth()->user()->bookmarks()->where('startup_id', $startup->id)->exists() ? 'text-rose-500' : 'text-slate-300' }} hover:text-rose-400 rounded-2xl transition-all duration-300 border border-slate-700 hover:border-slate-500 shadow-lg hover:shadow-xl w-full sm:w-auto flex justify-center items-center group">

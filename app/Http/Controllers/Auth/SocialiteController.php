@@ -11,8 +11,11 @@ use Illuminate\Support\Str;
 
 class SocialiteController extends Controller
 {
-    public function redirect($provider)
+    public function redirect(Request $request, $provider)
     {
+        if ($request->has('role')) {
+            session(['socialite_role' => $request->role]);
+        }
         return Socialite::driver($provider)->redirect();
     }
 
@@ -42,7 +45,7 @@ class SocialiteController extends Controller
                 'email' => $socialUser->getEmail(),
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),
-                'role' => 'customer', // Default role for social logins
+                'role' => session()->pull('socialite_role', 'customer'), // Use session role or default to customer
                 'password' => null, // Password is null for social logins
                 'email_verified_at' => now(), // Assume email is verified by provider
             ]);

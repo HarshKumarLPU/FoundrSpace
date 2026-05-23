@@ -14,4 +14,9 @@ class Investor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function investmentProposals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(InvestmentProposal::class);
+    }
 }

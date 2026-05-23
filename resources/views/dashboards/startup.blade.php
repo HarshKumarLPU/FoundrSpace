@@ -22,9 +22,16 @@
         @if($startup)
             <!-- Profile Cover & Summary -->
             <div class="glass-panel rounded-2xl border border-indigo-900/50 shadow-[0_4px_20px_rgba(79,70,229,0.05)] overflow-hidden group hover:border-indigo-500/30 transition-all duration-500">
-                <div class="h-32 bg-gradient-to-r from-indigo-950 via-slate-900 to-cyan-950 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
-                </div>
+                @if($startup->banner)
+                    <div class="h-32 bg-slate-900 relative overflow-hidden">
+                        <img src="{{ asset('storage/' . $startup->banner) }}" alt="Banner" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                    </div>
+                @else
+                    <div class="h-32 bg-gradient-to-r from-indigo-950 via-slate-900 to-cyan-950 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+                    </div>
+                @endif
                 <div class="px-8 pb-8 relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-slate-900/60 backdrop-blur-md">
                     <div class="flex items-start gap-5 -mt-10 relative z-10">
                         <div class="w-24 h-24 rounded-2xl bg-slate-950 border-4 border-slate-900 overflow-hidden flex items-center justify-center shadow-xl group-hover:shadow-indigo-500/20 transition-all duration-300 group-hover:-translate-y-1">
@@ -48,6 +55,10 @@
                         </div>
                     </div>
                     <div class="md:mt-8 flex items-center gap-3 w-full md:w-auto relative z-10">
+                        <a href="{{ route('startups.edit', $startup) }}" class="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-sm font-bold rounded-xl border border-slate-700 transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            Edit Profile
+                        </a>
                         <a href="{{ route('jobs.create') }}" class="w-full md:w-auto inline-flex justify-center items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] transition-all duration-300 hover:-translate-y-0.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             Post a Job
@@ -243,8 +254,77 @@
                             </div>
                         @endif
                     </div>
-                </div>
+                    
+                    <!-- Investment Proposals Tracking -->
+                    <div class="glass-panel rounded-2xl border border-emerald-900/40 bg-slate-900/60 shadow-sm overflow-hidden hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="p-6 border-b border-emerald-900/40 bg-emerald-950/20 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                            <h3 class="font-extrabold text-white flex items-center gap-2 relative z-10">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Investment Proposals
+                            </h3>
+                            <p class="text-[11px] font-medium text-slate-400 mt-1.5 leading-relaxed relative z-10">Review and manage inbound investment offers from verified investors.</p>
+                        </div>
+                        @if($investmentProposals->count() > 0)
+                            <div class="divide-y divide-slate-800/60">
+                                @foreach($investmentProposals as $proposal)
+                                    <div class="p-6 space-y-4 hover:bg-slate-800/40 transition-colors">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h4 class="font-bold text-slate-100">{{ $proposal->investor->user->name }}</h4>
+                                                <p class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider mt-1">{{ $proposal->investor->organization ?? 'Independent Investor' }}</p>
+                                            </div>
+                                            <span class="px-2.5 py-1 text-[9px] font-black rounded-md {{ $proposal->status === 'pending' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ($proposal->status === 'accepted' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400 border border-slate-700') }} uppercase shadow-sm tracking-widest">
+                                                {{ $proposal->status }}
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="text-sm font-black text-white bg-slate-950/50 px-3 py-2 rounded border border-slate-800">
+                                            Offer: <span class="text-emerald-400">{{ $proposal->proposed_amount }}</span>
+                                        </div>
+                                        
+                                        <div class="text-xs text-slate-400 leading-relaxed bg-slate-950/30 p-3 rounded-lg border border-slate-800/50">
+                                            {{ $proposal->message }}
+                                        </div>
 
+                                        <div class="flex items-center justify-between pt-2">
+                                            <a href="{{ route('investors.show', $proposal->investor) }}" class="text-[11px] font-bold text-slate-300 hover:text-emerald-300 inline-flex items-center gap-1.5 transition-colors">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                                View Investor Profile
+                                            </a>
+                                            
+                                            <div class="flex items-center gap-2">
+                                                @if($proposal->status === 'pending')
+                                                    <form action="{{ route('investment-proposals.accept', $proposal) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white rounded-lg border border-emerald-500/20 hover:border-emerald-500 transition-all shadow-sm" title="Accept Proposal">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                                        </button>
+                                                    </form>
+                                                    <form action="{{ route('investment-proposals.reject', $proposal) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white rounded-lg border border-red-500/20 hover:border-red-500 transition-all shadow-sm" title="Reject Proposal">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">{{ $proposal->updated_at->diffForHumans() }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="p-10 text-center">
+                                <div class="w-12 h-12 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-500">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <p class="text-sm text-slate-500 font-medium">No investment proposals received yet.</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         @else
             <!-- Missing Startup Profile Warning -->

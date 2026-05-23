@@ -187,6 +187,50 @@
                 @endif
             </div>
 
+            <!-- Outgoing Investment Proposals Tracking -->
+            <div class="rounded-3xl border border-indigo-900/30 bg-slate-900/40 shadow-sm overflow-hidden mt-10 relative">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+                <div class="p-8 border-b border-indigo-900/30 bg-indigo-950/10 flex justify-between items-center relative z-10">
+                    <div>
+                        <h3 class="font-bold text-2xl text-white tracking-tight flex items-center gap-3">
+                            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            My Investment Proposals
+                        </h3>
+                        <p class="text-sm text-slate-400 mt-2">Track the status of the investment offers you have sent to startups.</p>
+                    </div>
+                </div>
+                @if($investmentProposals->count() > 0)
+                    <div class="divide-y divide-indigo-900/20 relative z-10">
+                        @foreach($investmentProposals as $proposal)
+                            <div class="p-8 hover:bg-slate-800/30 transition-colors flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+                                <div class="flex-grow">
+                                    <div class="flex items-center gap-4">
+                                        <h4 class="font-bold text-white text-xl">{{ $proposal->startup->name }}</h4>
+                                        <span class="px-3 py-1 text-[10px] font-black rounded-full {{ $proposal->status === 'pending' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ($proposal->status === 'accepted' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400 border border-slate-700') }} uppercase tracking-widest shadow-inner">
+                                            {{ $proposal->status }}
+                                        </span>
+                                    </div>
+                                    <div class="text-sm font-black text-white mt-3 bg-slate-950/50 px-3 py-2 rounded inline-block border border-slate-800">
+                                        Offer: <span class="text-indigo-400">{{ $proposal->proposed_amount }}</span>
+                                    </div>
+                                    <p class="text-sm text-slate-400 mt-3 max-w-3xl leading-relaxed">{{ Str::limit($proposal->message, 150) }}</p>
+                                </div>
+                                <div class="w-full lg:w-auto shrink-0 pt-4 lg:pt-0">
+                                    <a href="{{ route('marketplace.show', $proposal->startup) }}" class="w-full lg:w-auto inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-slate-800 hover:bg-slate-700 text-white text-sm font-bold rounded-full transition-all border border-slate-700">
+                                        View Startup
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="p-12 text-center text-slate-500 relative z-10">
+                        <svg class="w-12 h-12 text-indigo-900/50 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        You haven't proposed any investments yet.
+                    </div>
+                @endif
+            </div>
+
         @else
             <!-- Missing Investor Profile Warning -->
             <div class="p-12 bg-emerald-950/20 rounded-[2.5rem] border border-emerald-900/50 text-center space-y-6 max-w-2xl mx-auto shadow-[0_0_40px_rgba(16,185,129,0.1)] relative overflow-hidden mt-10">
