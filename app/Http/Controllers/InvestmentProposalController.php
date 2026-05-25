@@ -22,7 +22,6 @@ class InvestmentProposalController extends Controller
         // Prevent duplicate pending proposals
         $existingProposal = InvestmentProposal::where('startup_id', $startup->id)
             ->where('investor_id', auth()->user()->investor->id)
-            ->where('status', 'pending')
             ->first();
 
         if ($existingProposal) {

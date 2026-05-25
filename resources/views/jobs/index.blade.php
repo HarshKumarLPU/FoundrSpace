@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <!-- Main Content Grid -->
+    <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 800)">
         @if(session('success'))
             <div class="mb-8 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold rounded-2xl flex items-center gap-3">
@@ -48,70 +48,68 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <!-- Sidebar / Filters -->
-            <div class="lg:col-span-1">
-                <div class="sticky top-6">
-                    <form action="{{ route('jobs.index') }}" method="GET" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 rounded-lg bg-violet-500/10 text-violet-400 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <h3 class="font-bold text-lg text-white">Find Your Next Role</h3>
+        <!-- Top Filters -->
+        <div class="mb-10">
+            <form action="{{ route('jobs.index') }}" method="GET" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                <div class="flex flex-col lg:flex-row items-start lg:items-end gap-6">
+                    
+                    <div class="flex items-center gap-3 lg:w-48 flex-shrink-0">
+                        <div class="w-10 h-10 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-white leading-tight">Find Role</h3>
+                            <p class="text-xs text-slate-500 font-medium">Search jobs</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow grid grid-cols-1 md:grid-cols-4 gap-6 w-full items-end">
+                        <!-- Keyword Search -->
+                        <div class="w-full md:col-span-1">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Job Title / Keyword</label>
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="e.g. Full Stack..." class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-violet-500 focus:border-violet-500 p-3 outline-none transition-colors">
+                        </div>
+                        
+                        <!-- Job Type Filter -->
+                        <div class="w-full md:col-span-1">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Job Type</label>
+                            <select name="type" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-violet-500 focus:border-violet-500 p-3 outline-none transition-colors appearance-none">
+                                <option value="">Any Type</option>
+                                <option value="Full-time" {{ request('type') == 'Full-time' ? 'selected' : '' }}>Full-Time</option>
+                                <option value="Part-time" {{ request('type') == 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                                <option value="Contract" {{ request('type') == 'Contract' ? 'selected' : '' }}>Contract / Freelance</option>
+                                <option value="Internship" {{ request('type') == 'Internship' ? 'selected' : '' }}>Internship</option>
+                                <option value="Co-founder" {{ request('type') == 'Co-founder' ? 'selected' : '' }}>Co-founder / Equity</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Salary Filter -->
+                        <div class="w-full md:col-span-1">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Salary / Rate</label>
+                            <select name="salary" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-violet-500 focus:border-violet-500 p-3 outline-none transition-colors appearance-none">
+                                <option value="">Any Compensation</option>
+                                <option value="equity">Equity Only</option>
+                                <option value="50k">$50k - $100k</option>
+                                <option value="100k">$100k - $150k</option>
+                                <option value="150k+">$150k+</option>
+                            </select>
                         </div>
 
-                        <div class="space-y-6">
-                            <!-- Keyword Search -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Job Title or Keyword</label>
-                                <input type="text" name="search" value="{{ request('search') }}" placeholder="e.g. Full Stack Engineer..." class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-violet-500 focus:border-violet-500 p-3 outline-none transition-colors">
-                            </div>
-                            
-                            <!-- Mock Job Type Filter -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Job Type</label>
-                                <div class="space-y-2">
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-violet-500 focus:ring-violet-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Full-Time</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-violet-500 focus:ring-violet-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Contract / Freelance</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-violet-500 focus:ring-violet-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Mentorship</span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <!-- Mock Salary Filter -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Salary / Rate</label>
-                                <select class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-violet-500 focus:border-violet-500 p-3 outline-none transition-colors appearance-none">
-                                    <option value="">Any Compensation</option>
-                                    <option value="equity">Equity Only</option>
-                                    <option value="50k">$50k - $100k</option>
-                                    <option value="100k">$100k - $150k</option>
-                                    <option value="150k+">$150k+</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 pt-6 border-t border-slate-800">
-                            <button type="submit" class="w-full py-3 bg-violet-600 hover:bg-violet-500 text-white text-sm font-bold rounded-xl shadow-[0_4px_15px_rgba(139,92,246,0.2)] hover:shadow-[0_6px_20px_rgba(139,92,246,0.4)] transition-all active:scale-95">
+                        <!-- Button -->
+                        <div class="w-full md:col-span-1">
+                            <button type="submit" class="w-full py-3 bg-violet-600 hover:bg-violet-500 text-white text-sm font-bold rounded-xl shadow-[0_4px_15px_rgba(139,92,246,0.2)] hover:shadow-[0_6px_20px_rgba(139,92,246,0.4)] transition-all active:scale-95 h-[46px] flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                 Search Jobs
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
+        </div>
 
-            <!-- Jobs List -->
-            <div class="lg:col-span-3 space-y-4">
-                <template x-if="loading">
+        <!-- Jobs List -->
+        <div class="w-full space-y-4">
+            <template x-if="loading">
                     <div class="space-y-4">
                         @for ($i = 0; $i < 5; $i++)
                             <div class="block group relative bg-slate-900 rounded-3xl p-6 border border-slate-800 overflow-hidden shadow-lg animate-pulse">
@@ -152,18 +150,17 @@
                                     @endif
                                 </div>
                                 
-                                <!-- Job Details -->
-                                <div class="flex-grow">
+                                <div class="flex-grow w-full min-w-0">
                                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-3">
                                         <div>
                                             <h3 class="font-heading font-black text-2xl text-white group-hover:text-violet-300 transition-colors tracking-tight">{{ $job->title }}</h3>
                                             <p class="text-slate-400 font-bold mt-1 text-sm flex items-center gap-2">
                                                 {{ $job->startup->name }}
-                                                <span class="w-1 h-1 rounded-full bg-slate-700"></span>
-                                                <span class="text-slate-500">{{ $job->startup->category->name ?? 'Tech Startup' }}</span>
+                                                <span class="w-1 h-1 rounded-full bg-slate-700 flex-shrink-0"></span>
+                                                <span class="text-slate-500 truncate">{{ $job->startup->category->name ?? 'Tech Startup' }}</span>
                                             </p>
                                         </div>
-                                        <div class="flex flex-wrap items-center gap-2">
+                                        <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
                                             <!-- Mock Badges -->
                                             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20">
                                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
@@ -175,7 +172,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="flex flex-wrap items-center gap-5 text-xs text-slate-500 mt-4 font-bold bg-slate-950 inline-flex px-4 py-2 rounded-xl border border-slate-800">
+                                    <div class="inline-flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-500 mt-4 font-bold bg-slate-950 px-4 py-2 rounded-xl border border-slate-800">
                                         @if($job->salary_range)
                                             <span class="flex items-center gap-1.5 text-slate-300">
                                                 <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -225,7 +222,5 @@
                 @endif
                 </div>
             </div>
-            
-        </div>
     </div>
 </x-public-layout>

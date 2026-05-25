@@ -24,6 +24,8 @@ class StartupController extends Controller
             'logo' => 'nullable|image|max:10240',
             'banner' => 'nullable|image|max:10240',
             'pitch_deck' => 'nullable|mimes:pdf|max:10240',
+            'funding_goal' => 'nullable|numeric|min:0',
+            'funding_raised' => 'nullable|numeric|min:0',
         ]);
 
         $logoPath = null;
@@ -50,6 +52,8 @@ class StartupController extends Controller
             'logo' => $logoPath,
             'banner' => $bannerPath,
             'pitch_deck' => $pitchDeckPath,
+            'funding_goal' => $request->funding_goal,
+            'funding_raised' => $request->funding_raised,
             'status' => 'pending',
             'is_verified' => false,
             'views_count' => 0,
@@ -82,6 +86,8 @@ class StartupController extends Controller
             'logo' => 'nullable|image|max:10240',
             'banner' => 'nullable|image|max:10240',
             'pitch_deck' => 'nullable|mimes:pdf|max:10240',
+            'funding_goal' => 'nullable|numeric|min:0',
+            'funding_raised' => 'nullable|numeric|min:0',
         ]);
 
         if ($request->hasFile('logo')) {
@@ -110,6 +116,8 @@ class StartupController extends Controller
         $startup->startup_category_id = $request->startup_category_id;
         $startup->description = $request->description;
         $startup->stage = $request->stage;
+        $startup->funding_goal = $request->funding_goal;
+        $startup->funding_raised = $request->funding_raised;
         $startup->save();
 
         return redirect()->route('startup.dashboard')->with('success', 'Startup profile updated successfully.');

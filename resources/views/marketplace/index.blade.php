@@ -29,7 +29,7 @@
                 </div>
                 <div class="p-4 rounded-2xl bg-slate-900/50 border border-slate-800 shadow-inner hidden md:block">
                     <p class="text-[10px] uppercase font-black tracking-widest text-slate-500 mb-1">Capital Raised</p>
-                    <p class="text-2xl font-black text-emerald-400">$45M+</p>
+                    <p class="text-2xl font-black text-emerald-400">${{ number_format(\App\Models\Startup::sum('funding_raised') / 1000000, 1) }}M+</p>
                 </div>
                 <div class="p-4 rounded-2xl bg-slate-900/50 border border-slate-800 shadow-inner hidden md:block">
                     <p class="text-[10px] uppercase font-black tracking-widest text-slate-500 mb-1">Success Rate</p>
@@ -39,68 +39,67 @@
         </div>
     </div>
 
-    <!-- Main Content Grid -->
+    <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 800)">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <!-- Sidebar / Filters -->
-            <div class="lg:col-span-1">
-                <div class="sticky top-6">
-                    <form action="{{ route('marketplace.index') }}" method="GET" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
-                            </div>
-                            <h3 class="font-bold text-lg text-white">Filter Startups</h3>
+        
+        <!-- Top Filters -->
+        <div class="mb-10">
+            <form action="{{ route('marketplace.index') }}" method="GET" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                <div class="flex flex-col lg:flex-row items-start lg:items-end gap-6">
+                    
+                    <div class="flex items-center gap-3 lg:w-48 flex-shrink-0">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
                         </div>
-
-                        <div class="space-y-6">
-                            <!-- Category Filter -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Industry Category</label>
-                                <select name="category" onchange="this.form.submit()" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 outline-none transition-colors appearance-none">
-                                    <option value="">Explore All Categories</option>
-                                    @foreach($categories as $cat)
-                                        <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
-                                            {{ $cat->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            
-                            <!-- Mock Stage Filter (For UI Fullness) -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Funding Stage</label>
-                                <div class="space-y-2">
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-indigo-500 focus:ring-indigo-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Pre-Seed / Ideation</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-indigo-500 focus:ring-indigo-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Seed Stage</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-indigo-500 focus:ring-indigo-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Series A & Beyond</span>
-                                    </label>
-                                </div>
-                            </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-white leading-tight">Filters</h3>
+                            <p class="text-xs text-slate-500 font-medium">Refine search</p>
                         </div>
+                    </div>
 
-                        <div class="mt-8 pt-6 border-t border-slate-800">
-                            <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold rounded-xl shadow-[0_4px_15px_rgba(99,102,241,0.2)] hover:shadow-[0_6px_20px_rgba(99,102,241,0.4)] transition-all active:scale-95">
+                    <div class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 w-full items-end">
+                        <!-- Category Filter -->
+                        <div class="w-full">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Industry Category</label>
+                            <select name="category" onchange="this.form.submit()" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 outline-none transition-colors appearance-none">
+                                <option value="">Explore All Categories</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Stage Filter -->
+                        <div class="w-full">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Funding Stage</label>
+                            <select name="stage" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 outline-none transition-colors appearance-none">
+                                <option value="">Any Stage</option>
+                                <option value="Bootstrapped" {{ request('stage') == 'Bootstrapped' ? 'selected' : '' }}>Bootstrapped</option>
+                                <option value="Pre-Seed" {{ request('stage') == 'Pre-Seed' ? 'selected' : '' }}>Pre-Seed</option>
+                                <option value="Seed" {{ request('stage') == 'Seed' ? 'selected' : '' }}>Seed</option>
+                                <option value="Series A" {{ request('stage') == 'Series A' ? 'selected' : '' }}>Series A</option>
+                                <option value="Series B+" {{ request('stage') == 'Series B+' ? 'selected' : '' }}>Series B or later</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Button -->
+                        <div class="w-full">
+                            <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold rounded-xl shadow-[0_4px_15px_rgba(99,102,241,0.2)] hover:shadow-[0_6px_20px_rgba(99,102,241,0.4)] transition-all active:scale-95 h-[46px] flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                 Apply Filters
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
+        </div>
 
-            <!-- Startups Grid -->
-            <div class="lg:col-span-3">
-                <template x-if="loading">
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Startups Grid -->
+        <div class="w-full">
+            <template x-if="loading">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         @for ($i = 0; $i < 6; $i++)
                             <div class="bg-slate-900 rounded-[2rem] border border-slate-800 overflow-hidden h-full shadow-lg animate-pulse flex flex-col">
                                 <div class="h-40 w-full bg-slate-800/50"></div>
@@ -128,7 +127,7 @@
                 </template>
                 <div x-show="!loading" style="display: none;">
                 @if($startups->count() > 0)
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         @foreach($startups as $startup)
                             <a href="{{ route('marketplace.show', $startup) }}" class="group relative bg-slate-900 rounded-[2rem] border border-slate-800 hover:border-indigo-500/40 overflow-hidden flex flex-col h-full shadow-lg hover:shadow-[0_8px_30px_rgba(99,102,241,0.1)] transition-all duration-500 hover:-translate-y-1">
                                 <!-- Banner Image -->
@@ -169,16 +168,31 @@
                                     <p class="text-sm text-slate-400 line-clamp-3 mt-4 flex-grow leading-relaxed">
                                         {{ $startup->description }}
                                     </p>
-                                    <!-- Funding Progress (Mock) -->
-                                    <div class="mt-5 mb-2">
-                                        <div class="flex justify-between items-end mb-2">
-                                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Funding Progress</span>
-                                            <span class="text-xs font-black text-emerald-400">{{ ($startup->id * 23) % 100 }}% Raised</span>
+                                    <!-- Funding Progress -->
+                                    @if($startup->funding_goal > 0)
+                                        @php
+                                            $fundingPercentage = min(100, round(($startup->funding_raised / $startup->funding_goal) * 100));
+                                        @endphp
+                                        <div class="mt-5 mb-2">
+                                            <div class="flex justify-between items-end mb-2">
+                                                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Funding Progress</span>
+                                                <span class="text-xs font-black text-emerald-400">{{ $fundingPercentage }}% Raised</span>
+                                            </div>
+                                            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden relative">
+                                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: {{ $fundingPercentage }}%"></div>
+                                            </div>
                                         </div>
-                                        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden relative">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: {{ ($startup->id * 23) % 100 }}%"></div>
+                                    @else
+                                        <div class="mt-5 mb-2">
+                                            <div class="flex justify-between items-end mb-2">
+                                                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Funding Progress</span>
+                                                <span class="text-xs font-black text-slate-400">Undisclosed</span>
+                                            </div>
+                                            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden relative">
+                                                <div class="absolute top-0 left-0 h-full bg-slate-700 rounded-full" style="width: 0%"></div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                     
                                     <!-- Footer -->
                                     <div class="mt-6 pt-5 border-t border-slate-800/80 flex items-center justify-between">
@@ -224,7 +238,5 @@
                 @endif
                 </div>
             </div>
-            
-        </div>
     </div>
 </x-public-layout>

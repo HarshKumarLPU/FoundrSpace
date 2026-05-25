@@ -26,7 +26,20 @@ class InvestorController extends Controller
             });
         }
 
+        if ($request->has('focus') && $request->focus != '') {
+            $focusTerm = str_replace('_', ' ', $request->focus);
+            $query->where(function ($q) use ($focusTerm) {
+                $q->where('bio', 'like', '%' . $focusTerm . '%')
+                  ->orWhere('investment_range', 'like', '%' . $focusTerm . '%');
+            });
+        }
+
+        if ($request->has('type') && $request->type == 'verified') {
+            $query->where('is_verified', true);
+        }
+
         $investors = $query->latest()->paginate(12);
+        $investors->appends($request->all());
 
         return view('investors.index', compact('investors'));
     }

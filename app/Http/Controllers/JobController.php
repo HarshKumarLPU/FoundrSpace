@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $query = JobPosting::with('startup')->where('status', 'active');
 
@@ -17,7 +17,24 @@ class JobController extends Controller
             });
         }
 
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'like', $searchTerm)
+                  ->orWhere('description', 'like', $searchTerm)
+                  ->orWhereHas('startup', function ($s) use ($searchTerm) {
+                      $s->where('name', 'like', $searchTerm);
+                  });
+            });
+        }
+
+        if ($request->has('type') && $request->type != '') {
+            $query->where('type', $request->type);
+        }
+
         $jobs = $query->latest()->paginate(10);
+        $jobs->appends($request->all());
+        
         return view('jobs.index', compact('jobs'));
     }
 

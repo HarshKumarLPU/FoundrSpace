@@ -19,8 +19,13 @@ class MarketplaceController extends Controller
         if ($request->has('category') && $request->category != '') {
             $query->where('startup_category_id', $request->category);
         }
+
+        if ($request->has('stage') && $request->stage != '') {
+            $query->where('stage', $request->stage);
+        }
         
         $startups = $query->latest()->paginate(12);
+        $startups->appends($request->all());
         $categories = StartupCategory::all();
         
         return view('marketplace.index', compact('startups', 'categories'));

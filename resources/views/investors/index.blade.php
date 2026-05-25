@@ -39,72 +39,67 @@
         </div>
     </div>
 
-    <!-- Main Content Grid -->
+    <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <!-- Sidebar / Filters -->
-            <div class="lg:col-span-1">
-                <div class="sticky top-6">
-                    <form action="{{ route('investors.index') }}" method="GET" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+        
+        <!-- Top Filters -->
+        <div class="mb-10">
+            <form action="{{ route('investors.index') }}" method="GET" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                <div class="flex flex-col lg:flex-row items-start lg:items-end gap-6">
+                    
+                    <div class="flex items-center gap-3 lg:w-48 flex-shrink-0">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-white leading-tight">Search Directory</h3>
+                            <p class="text-xs text-slate-500 font-medium">Find investors</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow grid grid-cols-1 md:grid-cols-4 gap-6 w-full items-end">
+                        <!-- Keyword Search -->
+                        <div class="w-full md:col-span-1">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Keywords</label>
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Name, firm, or bio..." class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 p-3 outline-none transition-colors">
+                        </div>
+                        
+                        <!-- Investment Focus Filter -->
+                        <div class="w-full md:col-span-1">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Investment Focus</label>
+                            <select name="focus" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 p-3 outline-none transition-colors appearance-none">
+                                <option value="">Any Focus</option>
+                                <option value="angel" {{ request('focus') == 'angel' ? 'selected' : '' }}>Angel / Pre-Seed</option>
+                                <option value="venture" {{ request('focus') == 'venture' ? 'selected' : '' }}>Venture / Seed</option>
+                                <option value="private_equity" {{ request('focus') == 'private_equity' ? 'selected' : '' }}>Private Equity</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Investor Type Filter -->
+                        <div class="w-full md:col-span-1">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Investor Type</label>
+                            <select name="type" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 p-3 outline-none transition-colors appearance-none">
+                                <option value="">All Investors</option>
+                                <option value="verified" {{ request('type') == 'verified' ? 'selected' : '' }}>Verified Partner Only</option>
+                            </select>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="w-full md:col-span-1">
+                            <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-xl shadow-[0_4px_15px_rgba(16,185,129,0.2)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 h-[46px] flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                            <h3 class="font-bold text-lg text-white">Search Directory</h3>
-                        </div>
-
-                        <div class="space-y-6">
-                            <!-- Keyword Search -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Keywords</label>
-                                <input type="text" name="search" value="{{ request('search') }}" placeholder="Name, firm, or bio..." class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 p-3 outline-none transition-colors">
-                            </div>
-                            
-                            <!-- Mock Investment Focus Filter -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Investment Focus</label>
-                                <div class="space-y-2">
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-emerald-500 focus:ring-emerald-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Angel / Pre-Seed</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-emerald-500 focus:ring-emerald-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Venture / Seed</span>
-                                    </label>
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-emerald-500 focus:ring-emerald-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Private Equity</span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <!-- Mock Investor Type -->
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Investor Type</label>
-                                <div class="space-y-2">
-                                    <label class="flex items-center gap-3 text-sm text-slate-400 hover:text-white cursor-pointer group">
-                                        <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-emerald-500 focus:ring-emerald-500/50">
-                                        <span class="group-hover:translate-x-1 transition-transform">Verified Partner Only</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 pt-6 border-t border-slate-800">
-                            <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-xl shadow-[0_4px_15px_rgba(16,185,129,0.2)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95">
                                 Search Investors
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
+        </div>
 
-            <!-- Investors Grid -->
-            <div class="lg:col-span-3">
-                @if($investors->count() > 0)
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Investors Grid -->
+        <div class="w-full">
+            @if($investors->count() > 0)
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         @foreach($investors as $investor)
                             <div class="group relative bg-slate-900 rounded-[2rem] border border-slate-800 hover:border-emerald-500/40 overflow-hidden flex flex-col h-full shadow-lg hover:shadow-[0_8px_30px_rgba(16,185,129,0.08)] transition-all duration-500 p-8">
                                 <!-- Top details: Avatar & Verified badge -->
@@ -192,7 +187,5 @@
                     </div>
                 @endif
             </div>
-            
-        </div>
     </div>
 </x-public-layout>

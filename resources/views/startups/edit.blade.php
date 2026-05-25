@@ -52,6 +52,20 @@
                             <x-input-error :messages="$errors->get('stage')" class="mt-2" />
                         </div>
 
+                        <!-- Funding Goal -->
+                        <div>
+                            <x-input-label for="funding_goal" :value="__('Funding Goal ($)')" class="text-gray-300" />
+                            <x-text-input id="funding_goal" class="block mt-1 w-full bg-gray-900/50 border-gray-700 text-white focus:ring-cyan-500 focus:border-cyan-500" type="number" step="0.01" name="funding_goal" :value="old('funding_goal', $startup->funding_goal)" />
+                            <x-input-error :messages="$errors->get('funding_goal')" class="mt-2" />
+                        </div>
+
+                        <!-- Funding Raised -->
+                        <div>
+                            <x-input-label for="funding_raised" :value="__('Funding Raised ($)')" class="text-gray-300" />
+                            <x-text-input id="funding_raised" class="block mt-1 w-full bg-gray-900/50 border-gray-700 text-white focus:ring-cyan-500 focus:border-cyan-500" type="number" step="0.01" name="funding_raised" :value="old('funding_raised', $startup->funding_raised)" />
+                            <x-input-error :messages="$errors->get('funding_raised')" class="mt-2" />
+                        </div>
+
                         <!-- Logo -->
                         <div>
                             <x-input-label for="logo" :value="__('Startup Logo (Max 2MB)')" class="text-gray-300" />

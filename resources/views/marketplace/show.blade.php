@@ -58,44 +58,56 @@
                         </span>
                     @else
                         @if(auth()->check() && auth()->user()->role === 'investor')
-                            <div x-data="{ openInvestModal: false }">
-                                <button @click="openInvestModal = true" class="px-8 py-4 bg-emerald-500 text-white hover:bg-emerald-400 font-black rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2">
-                                    Propose Investment
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            @php
+                                $hasProposed = \App\Models\InvestmentProposal::where('startup_id', $startup->id)
+                                    ->where('investor_id', auth()->user()->investor->id)
+                                    ->exists();
+                            @endphp
+                            @if($hasProposed)
+                                <button disabled class="px-8 py-4 bg-slate-800 text-slate-500 font-black rounded-2xl cursor-not-allowed w-full sm:w-auto flex justify-center items-center gap-2">
+                                    Proposal Submitted
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                                 </button>
-                                
-                                <!-- Invest Modal -->
-                                <template x-teleport="body">
-                                    <div x-show="openInvestModal" class="fixed inset-0 z-[100] overflow-y-auto" style="display: none;">
-                                        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
-                                            <div x-show="openInvestModal" @click="openInvestModal = false" class="fixed inset-0 transition-opacity" aria-hidden="true">
-                                                <div class="absolute inset-0 bg-slate-950 opacity-80 backdrop-blur-sm"></div>
-                                            </div>
-                                            <div x-show="openInvestModal" class="relative inline-block align-bottom bg-slate-900 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-slate-800">
-                                                <form action="{{ route('startups.invest', $startup) }}" method="POST" class="p-8">
-                                                    @csrf
-                                                    <h3 class="text-2xl font-black text-white mb-6">Propose Investment</h3>
-                                                    
-                                                    <div class="mb-6">
-                                                        <label for="proposed_amount" class="block text-sm font-bold text-slate-400 mb-2">Proposed Amount / Range</label>
-                                                        <input type="text" name="proposed_amount" id="proposed_amount" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. $50k - $100k" required>
-                                                    </div>
-                                                    
-                                                    <div class="mb-6">
-                                                        <label for="message" class="block text-sm font-bold text-slate-400 mb-2">Message to Founder</label>
-                                                        <textarea name="message" id="message" rows="4" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Introduce yourself and explain why you're interested in investing..." required></textarea>
-                                                    </div>
-                                                    
-                                                    <div class="flex justify-end gap-3 mt-8">
-                                                        <button type="button" @click="openInvestModal = false" class="px-6 py-2.5 rounded-xl text-slate-400 font-bold hover:text-white hover:bg-slate-800 transition-colors">Cancel</button>
-                                                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-lg transition-all">Send Proposal</button>
-                                                    </div>
-                                                </form>
+                            @else
+                                <div x-data="{ openInvestModal: false }">
+                                    <button @click="openInvestModal = true" class="px-8 py-4 bg-emerald-500 text-white hover:bg-emerald-400 font-black rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2">
+                                        Propose Investment
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </button>
+                                    
+                                    <!-- Invest Modal -->
+                                    <template x-teleport="body">
+                                        <div x-show="openInvestModal" class="fixed inset-0 z-[100] overflow-y-auto" style="display: none;">
+                                            <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+                                                <div x-show="openInvestModal" @click="openInvestModal = false" class="fixed inset-0 transition-opacity" aria-hidden="true">
+                                                    <div class="absolute inset-0 bg-slate-950 opacity-80 backdrop-blur-sm"></div>
+                                                </div>
+                                                <div x-show="openInvestModal" class="relative inline-block align-bottom bg-slate-900 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-slate-800">
+                                                    <form action="{{ route('startups.invest', $startup) }}" method="POST" class="p-8">
+                                                        @csrf
+                                                        <h3 class="text-2xl font-black text-white mb-6">Propose Investment</h3>
+                                                        
+                                                        <div class="mb-6">
+                                                            <label for="proposed_amount" class="block text-sm font-bold text-slate-400 mb-2">Proposed Amount / Range</label>
+                                                            <input type="text" name="proposed_amount" id="proposed_amount" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. $50k - $100k" required>
+                                                        </div>
+                                                        
+                                                        <div class="mb-6">
+                                                            <label for="message" class="block text-sm font-bold text-slate-400 mb-2">Message to Founder</label>
+                                                            <textarea name="message" id="message" rows="4" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Introduce yourself and explain why you're interested in investing..." required></textarea>
+                                                        </div>
+                                                        
+                                                        <div class="flex justify-end gap-3 mt-8">
+                                                            <button type="button" @click="openInvestModal = false" class="px-6 py-2.5 rounded-xl text-slate-400 font-bold hover:text-white hover:bg-slate-800 transition-colors">Cancel</button>
+                                                            <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-lg transition-all">Send Proposal</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </template>
-                            </div>
+                                    </template>
+                                </div>
+                            @endif
                         @else
                             <a href="mailto:{{ $startup->user->email }}" class="px-8 py-4 bg-white text-slate-950 hover:bg-indigo-50 font-black rounded-2xl border border-white shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2">
                                 Contact Founder
@@ -162,17 +174,32 @@
                     </h3>
                     <p class="text-sm text-slate-400 mb-6 relative z-10">Current seed round tracking.</p>
                     
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-end mb-3">
-                            <span class="text-sm font-bold text-slate-300">Target: <span class="text-white">$1.5M</span></span>
-                            <span class="text-2xl font-black text-emerald-400">{{ ($startup->id * 23) % 100 }}%</span>
-                        </div>
-                        <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 shadow-inner">
-                            <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)] relative" style="width: {{ ($startup->id * 23) % 100 }}%">
-                                <div class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
+                    @if($startup->funding_goal > 0)
+                        @php
+                            $fundingPercentage = min(100, round(($startup->funding_raised / $startup->funding_goal) * 100));
+                        @endphp
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-end mb-3">
+                                <span class="text-sm font-bold text-slate-300">Target: <span class="text-white">${{ number_format($startup->funding_goal) }}</span></span>
+                                <span class="text-2xl font-black text-emerald-400">{{ $fundingPercentage }}%</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 shadow-inner">
+                                <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)] relative" style="width: {{ $fundingPercentage }}%">
+                                    <div class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-end mb-3">
+                                <span class="text-sm font-bold text-slate-300">Target: <span class="text-white">Undisclosed</span></span>
+                                <span class="text-2xl font-black text-slate-400">N/A</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 shadow-inner">
+                                <div class="h-full bg-slate-700 rounded-full relative" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    @endif
                     
                     <div class="mt-8 pt-6 border-t border-slate-800/80 relative z-10">
                         @if($startup->pitch_deck)
