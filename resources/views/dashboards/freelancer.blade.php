@@ -33,8 +33,12 @@
                 <p class="text-slate-400 mt-4 text-sm leading-relaxed font-medium">Find project opportunities, full-time roles, and mentor requests from emerging startups looking for your unique expertise.</p>
             </div>
             
-            <div class="relative z-10 w-full md:w-auto shrink-0 pt-4 md:pt-0">
-                <a href="{{ route('jobs.index') }}" class="w-full md:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-black text-sm rounded-xl shadow-[0_4px_20px_rgba(139,92,246,0.4)] hover:shadow-[0_8px_30px_rgba(139,92,246,0.6)] transition-all duration-300 hover:scale-[1.03] active:scale-95">
+            <div class="relative z-10 w-full md:w-auto shrink-0 pt-4 md:pt-0 flex flex-col sm:flex-row gap-3">
+                <a href="{{ route('marketplace.index') }}" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-4 bg-slate-800/80 hover:bg-slate-700/80 text-white font-black text-sm rounded-xl border border-violet-500/30 hover:border-violet-400 transition-all duration-300 hover:scale-[1.03] active:scale-95">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Browse Startups
+                </a>
+                <a href="{{ route('jobs.index') }}" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-black text-sm rounded-xl shadow-[0_4px_20px_rgba(139,92,246,0.4)] hover:shadow-[0_8px_30px_rgba(139,92,246,0.6)] transition-all duration-300 hover:scale-[1.03] active:scale-95">
                     Browse Job Board
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>

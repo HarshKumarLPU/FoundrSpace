@@ -66,4 +66,36 @@ class ApplicationController extends Controller
         $application->update(['status' => 'rejected']);
         return back()->with('success', "Application for {$application->user->name} rejected.");
     }
+
+    public function viewResume(Application $application)
+    {
+        $user = auth()->user();
+        $startup = $user->startup;
+        
+        if ($user->id !== $application->user_id && (!$startup || $application->jobPosting->startup_id !== $startup->id)) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        if (!\Illuminate\Support\Facades\Storage::disk('public')->exists($application->resume)) {
+            abort(404, 'Resume not found.');
+        }
+
+        return \Illuminate\Support\Facades\Storage::disk('public')->response($application->resume);
+    }
+
+    public function downloadResume(Application $application)
+    {
+        $user = auth()->user();
+        $startup = $user->startup;
+        
+        if ($user->id !== $application->user_id && (!$startup || $application->jobPosting->startup_id !== $startup->id)) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        if (!\Illuminate\Support\Facades\Storage::disk('public')->exists($application->resume)) {
+            abort(404, 'Resume not found.');
+        }
+
+        return \Illuminate\Support\Facades\Storage::disk('public')->download($application->resume);
+    }
 }

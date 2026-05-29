@@ -218,10 +218,16 @@
                                         </div>
 
                                         <div class="flex items-center justify-between pt-2">
-                                            <a href="{{ asset('storage/' . $app->resume) }}" target="_blank" class="text-[11px] font-bold text-slate-300 hover:text-indigo-300 inline-flex items-center gap-1.5 transition-colors">
-                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                View Resume
-                                            </a>
+                                            <div class="flex items-center gap-4">
+                                                <a href="{{ route('applications.resume.view', $app) }}" target="_blank" class="text-[11px] font-bold text-slate-300 hover:text-indigo-300 inline-flex items-center gap-1.5 transition-colors">
+                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                                    View
+                                                </a>
+                                                <a href="{{ route('applications.resume.download', $app) }}" class="text-[11px] font-bold text-slate-300 hover:text-indigo-300 inline-flex items-center gap-1.5 transition-colors">
+                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                                    Download
+                                                </a>
+                                            </div>
                                             
                                             <div class="flex items-center gap-2">
                                                 @if($app->status === 'pending')

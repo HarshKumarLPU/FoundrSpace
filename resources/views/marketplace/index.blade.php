@@ -57,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 w-full items-end">
+                    <div class="flex-grow grid grid-cols-1 md:grid-cols-4 gap-6 w-full items-end">
                         <!-- Category Filter -->
                         <div class="w-full">
                             <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Industry Category</label>
@@ -82,6 +82,17 @@
                                 <option value="Series A" {{ request('stage') == 'Series A' ? 'selected' : '' }}>Series A</option>
                                 <option value="Series B+" {{ request('stage') == 'Series B+' ? 'selected' : '' }}>Series B or later</option>
                             </select>
+                        </div>
+
+                        <!-- Hiring Filter -->
+                        <div class="w-full flex items-center h-[46px]">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <div class="relative">
+                                    <input type="checkbox" name="hiring" value="1" onchange="this.form.submit()" {{ request('hiring') == '1' ? 'checked' : '' }} class="sr-only peer">
+                                    <div class="w-10 h-6 bg-slate-800 rounded-full peer peer-focus:ring-2 peer-focus:ring-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-slate-400 peer-checked:after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500 transition-colors"></div>
+                                </div>
+                                <span class="text-sm font-bold text-slate-300 group-hover:text-indigo-400 transition-colors">Actively Hiring</span>
+                            </label>
                         </div>
                         
                         <!-- Button -->

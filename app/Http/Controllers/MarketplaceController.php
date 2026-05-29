@@ -24,6 +24,10 @@ class MarketplaceController extends Controller
             $query->where('stage', $request->stage);
         }
         
+        if ($request->has('hiring') && $request->hiring == '1') {
+            $query->whereHas('jobPostings');
+        }
+        
         $startups = $query->latest()->paginate(12);
         $startups->appends($request->all());
         $categories = StartupCategory::all();

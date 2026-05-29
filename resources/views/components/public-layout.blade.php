@@ -64,7 +64,7 @@
                 <div class="h-px bg-slate-800/60 my-4 mx-2"></div>
                 @endauth
 
-                @if(!auth()->check() || in_array(auth()->user()->role, ['admin', 'customer', 'investor', 'startup_owner']))
+                @if(!auth()->check() || in_array(auth()->user()->role, ['admin', 'customer', 'investor', 'startup_owner', 'freelancer']))
                 <a href="{{ route('marketplace.index') }}" class="flex items-center gap-3.5 px-4 py-3 text-sm font-semibold rounded-xl transition-all {{ request()->routeIs('marketplace.*') ? 'bg-blue-600/20 text-blue-400 shadow-sm border border-blue-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     Marketplace Directory
@@ -134,7 +134,7 @@
                 <div class="h-px bg-slate-800/60 my-2 mx-2"></div>
                 @endauth
                 
-                @if(!auth()->check() || in_array(auth()->user()->role, ['admin', 'customer', 'investor', 'startup_owner']))
+                @if(!auth()->check() || in_array(auth()->user()->role, ['admin', 'customer', 'investor', 'startup_owner', 'freelancer']))
                 <a @click="mobileMenuOpen = false" href="{{ route('marketplace.index') }}" class="flex items-center gap-3.5 px-4 py-3.5 text-sm font-semibold rounded-xl {{ request()->routeIs('marketplace.*') ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/40' }}">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     Marketplace Directory

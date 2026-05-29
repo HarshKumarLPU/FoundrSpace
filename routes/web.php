@@ -20,7 +20,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Marketplace Routes (Protected)
-Route::middleware(['auth', 'role:admin,customer,investor,startup_owner'])->group(function () {
+Route::middleware(['auth', 'role:admin,customer,investor,startup_owner,freelancer'])->group(function () {
     Route::get('/marketplace', [App\Http\Controllers\MarketplaceController::class, 'index'])->name('marketplace.index');
     Route::get('/marketplace/{startup}', [App\Http\Controllers\MarketplaceController::class, 'show'])->name('marketplace.show');
 });
@@ -93,6 +93,9 @@ Route::middleware(['auth', 'role:admin,freelancer,startup_owner'])->group(functi
 Route::post('/jobs/{job}/apply', [App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/applications/{application}/resume/view', [App\Http\Controllers\ApplicationController::class, 'viewResume'])->name('applications.resume.view');
+    Route::get('/applications/{application}/resume/download', [App\Http\Controllers\ApplicationController::class, 'downloadResume'])->name('applications.resume.download');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
